@@ -25,6 +25,7 @@ dependencies {
     shadow(libs.protocol.connection) { isTransitive = false }
     shadow(libs.protocol.common) { isTransitive = false }
     shadow(libs.protocol.codec) { isTransitive = false }
+    shadow(libs.mcauthlib) { isTransitive = false }
     shadow(libs.minecraftauth) { isTransitive = false }
     shadow(libs.raknet) { isTransitive = false }
 

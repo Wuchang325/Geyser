@@ -27,12 +27,11 @@ package org.geysermc.geyser.session;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.github.steveice10.mc.auth.data.GameProfile;
+//import com.github.steveice10.mc.auth.data.GameProfile;
 import com.github.steveice10.mc.auth.exception.request.InvalidCredentialsException;
 import com.github.steveice10.mc.auth.exception.request.RequestException;
 import com.github.steveice10.mc.auth.service.AuthenticationService;
 import com.github.steveice10.mc.auth.service.MojangAuthenticationService;
-import com.github.steveice10.mc.auth.service.MsaAuthenticationService;
 import io.netty.channel.Channel;
 import io.netty.channel.EventLoop;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -778,13 +777,13 @@ public class GeyserSession implements GeyserConnection, GeyserCommandSource {
                     authenticationService.setUsername(username);
                     authenticationService.setPassword(password);
                     authenticationService.login();
-                    GameProfile profile = authenticationService.getSelectedProfile();
+                    com.github.steveice10.mc.auth.data.GameProfile profile = authenticationService.getSelectedProfile();
                     if (profile == null) {
                         // Java account is offline
                         disconnect(GeyserLocale.getPlayerLocaleString("geyser.network.remote.invalid_account", clientData.getLanguageCode()));
                         return null;
                     }
-                    protocol = new MinecraftProtocol(profile, authenticationService.getAccessToken());
+                    protocol = new MinecraftProtocol(new GameProfile(profile.getId(), profile.getName()), authenticationService.getAccessToken());
                 }
             }catch (InvalidCredentialsException | IllegalArgumentException e) {
                 geyser.getLogger().info(GeyserLocale.getLocaleStringLog("geyser.auth.login.invalid", username));

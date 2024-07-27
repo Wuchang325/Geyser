@@ -25,10 +25,13 @@ dependencies {
 
     api(libs.bundles.protocol)
 
+    api(libs.mcauthlib)
     api(libs.minecraftauth)
     api(libs.mcprotocollib) {
         exclude("io.netty", "netty-all")
         exclude("net.raphimc", "MinecraftAuth")
+        exclude("com.github.GeyserMC", "packetlib")
+        exclude("com.github.GeyserMC", "mcauthlib")
     }
 
     implementation(libs.raknet) {
